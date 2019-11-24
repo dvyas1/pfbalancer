@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     {symbol: 'xyz', price: 33.2, value: 0.0, quantity:0, currentAllocation: '0%', futureAllocation: '', changesNeeded: 'None' }
   ];
 
-  constructor( private financialService: FinancialsService) {}
+  constructor(financialService: FinancialsService) {}
 
   ngOnInit(): void {
   }
@@ -32,12 +32,18 @@ export class AppComponent implements OnInit {
     this.stocks.splice(idx, 1);
   }
 
+  /**
+   * This function and empty row for a new stock
+   */
   addStock(): void {
     console.log('Adding new stock line');
     let stk: Stock = new Stock();
     this.stocks.push(stk);
   }
 
+  /**
+   * Master function to perform calculation and recommand changes
+   */
   performCalculations(): void {
     console.log('Performing calculations');
     this.fillStockParameters();
