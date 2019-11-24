@@ -1,1 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+  font-family: 'Ubuntu', sans-serif;
+  color: #4e555b;
+}
+
+.site-head {
+  padding-top: 20px;
+  color: #4e555b;
+}
+
+.horizontal-line {
+  background-color: #4e555b;
+  height: 5px;
+  width: 100%;
+
+}
+
+.main-table {
+  table {
+    border-top-color: white;
+    i {
+      cursor: pointer;
+    }
+  }
+}
+
+.pb-form-control-sm {
+  width: 100px;
+}
+
+.pb-form-control-md {
+  width: 160px;
+}
+
+.totals-div {
+  .row {
+    padding-top: 10px;
+  }
+}
