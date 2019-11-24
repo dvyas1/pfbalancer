@@ -1,4 +1,6 @@
-# PortfolioBalancer6
+# Portfolio Balancer
+This application allows your to balance your stock/assets portfolio based to your desired allocation. It requires minimum input and will recommand needed changes.
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
 
