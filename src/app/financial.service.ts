@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { Stock} from './stock';
-
 @Injectable({
   providedIn: 'root'
 })
-export class FinancialsService {
+export class FinancialService {
 
   constructor() { }
 
@@ -17,5 +15,4 @@ export class FinancialsService {
   getCurrentPrice(stockSymbol: string): number {
     return 10.0;
   }
-
 }

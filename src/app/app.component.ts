@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import { Stock } from './stock';
-import { FinancialsService} from './financials.service';
+import { FinancialService } from './financial.service'
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     {symbol: 'xyz', price: 33.2, value: 0.0, quantity:0, currentAllocation: '0%', futureAllocation: '', changesNeeded: 'None' }
   ];
 
-  constructor(financialService: FinancialsService) {}
+  constructor(private financialSv: FinancialService) {}
 
   ngOnInit(): void {
   }
@@ -52,11 +52,12 @@ export class AppComponent implements OnInit {
 
   // todo: start here
   private fillStockParameters(): void {
-
+    console.log(this.financialSv.getCurrentPrice("tt"));
+    /*
     this.stocks.forEach(function(stk) {
       stk.price = this.financialService.getCurrentPrice(stk.symbol);
       stk.quantity = stk.value == 0 ? 0 : (stk.quantity / stk.price);
-    });
+    });*/
 
   }
 
