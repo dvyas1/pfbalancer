@@ -7,7 +7,9 @@
       "ms-python.python",
       "angular.ng-template",
       "visualstudioexptteam.vscodeintellicode",
-      "redhat.vscode-xml"
+      "redhat.vscode-xml",
+      "eg2.vscode-npm-script",
+      "msjsdiag.debugger-for-chrome"
     ],
   
     // Set remote color for Peacock

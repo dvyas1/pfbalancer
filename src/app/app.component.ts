@@ -53,11 +53,11 @@ export class AppComponent implements OnInit {
   // todo: start here
   private fillStockParameters(): void {
     console.log(this.financialSv.getCurrentPrice("tt"));
-    /*
+    
     this.stocks.forEach(function(stk) {
-      stk.price = this.financialService.getCurrentPrice(stk.symbol);
+      stk.price = this.financialSv.getCurrentPrice(stk.symbol);
       stk.quantity = stk.value == 0 ? 0 : (stk.quantity / stk.price);
-    });*/
+    });
 
   }
 
