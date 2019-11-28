@@ -42,7 +42,7 @@
           <label>{{ stock.quantity }}</label>
         </td>
         <td>
-          <input class="form-control pb-form-control-sm" placeholder="00" [(ngModel)]="stock.value" >
+          <input class="form-control pb-form-control-sm" placeholder="00" type="number" [(ngModel)]="stock.value" >
         </td>
         <td>
           <label> {{ stock.currentAllocation }} </label>
@@ -94,10 +94,10 @@
       </div>
       <div class="row">
         <div class="col-md-2">
-          Total Value:
+          Total Present Value:
         </div>
         <div class="col-md-3">
-          $0.0
+          {{ totalPresentValue }}
         </div>
       </div>
 

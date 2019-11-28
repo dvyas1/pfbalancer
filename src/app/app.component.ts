@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
     {symbol: 'abc', price: 33.2, value: 0.0, quantity:0, currentAllocation: '0%', futureAllocation: '', changesNeeded: 'None' },
     {symbol: 'xyz', price: 33.2, value: 0.0, quantity:0, currentAllocation: '0%', futureAllocation: '', changesNeeded: 'None' }
   ];
+  totalPresentValue: number = 0.0;
 
   constructor(private financialSv: FinancialService) {}
 
@@ -47,17 +48,23 @@ export class AppComponent implements OnInit {
   performCalculations(): void {
     console.log('Performing calculations');
     this.fillStockParameters();
-    this.stocks.forEach( (stk) => console.log(stk));
+    
   }
 
   // todo: start here
   private fillStockParameters(): void {
     console.log(this.financialSv.getCurrentPrice("tt"));
     
-    this.stocks.forEach(function(stk) {
-      stk.price = this.financialSv.getCurrentPrice(stk.symbol);
-      stk.quantity = stk.value == 0 ? 0 : (stk.quantity / stk.price);
-    });
+    //set total present value to 0 as we will be calculating it again below
+    this.totalPresentValue = 0.0;
+
+    for (let stock of this.stocks){
+      stock.price = this.financialSv.getCurrentPrice(stock.symbol);
+      stock.quantity = stock.value == 0 ? 0 : (stock.quantity / stock.price);
+
+      //increase stock value to total present value
+      this.totalPresentValue += stock.value;
+    }
 
   }
 
