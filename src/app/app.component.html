@@ -97,7 +97,7 @@
           Total Present Value:
         </div>
         <div class="col-md-3">
-          {{ totalPresentValue }}
+          {{ totalPresentValue | currency }}
         </div>
       </div>
 
@@ -106,7 +106,7 @@
           New Addition:
         </div>
         <div class="col-md-3">
-          <input class="form-control pb-form-control-md" type="text" placeholder="0.0" id="addition">
+          <input class="form-control pb-form-control-md" type="number" placeholder="0.0" id="addition">
         </div>
       </div>
 
@@ -115,7 +115,7 @@
           Cash Takeout:
         </div>
         <div class="col-md-3">
-          <input class="form-control pb-form-control-md" type="text" placeholder="0.0" id="takeout">
+          <input class="form-control pb-form-control-md" type="number" placeholder="0.0" id="takeout">
         </div>
       </div>
       <div class="row">
