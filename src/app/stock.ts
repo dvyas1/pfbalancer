@@ -1,11 +1,14 @@
+/**
+ * This clas represents a stock/asset
+ */
 export class Stock {
 
   symbol: string;
   price: number;
   quantity: number;
   value: number;
-  currentAllocation: string;
-  futureAllocation: string;
+  currentAllocation: number;
+  futureAllocation: number;
   changesNeeded: string;
 
 

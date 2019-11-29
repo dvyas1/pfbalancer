@@ -45,13 +45,13 @@
           <input class="form-control pb-form-control-sm" placeholder="00" type="number" [(ngModel)]="stock.value" >
         </td>
         <td>
-          <label> {{ stock.currentAllocation }} </label>
+          <label> {{ stock.currentAllocation | percent }} </label>
         </td>
         <td>
-          <input class="form-control pb-form-control-sm" placeholder="0%" [(ngModel)]="stock.futureAllocation" >
+          <input class="form-control pb-form-control-sm" placeholder="0%" type="number" [(ngModel)]="stock.futureAllocation" >
         </td>
         <td>
-          <label> {{ stock.changesNeeded }} </label>
+          <label> {{ stock.changesNeeded | currency }} </label>
         </td>
         <td> <i class="fas fa-minus-circle" role="button" (click)="removeStock(stock.symbol)" ></i> </td>
       </tr>
