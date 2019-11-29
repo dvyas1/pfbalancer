@@ -6,3 +6,7 @@
   getCurrentPrice(stockSymbol: string): number {
     return 10.0;
   }
+
+  Useful Commands:
+  - To run the app from VS Code:
+    ng serve --disable-host-check
