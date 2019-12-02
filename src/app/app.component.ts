@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 
 import { Stock } from './stock';
 import { FinancialService } from './financial.service'
@@ -9,13 +9,22 @@ import { FinancialService } from './financial.service'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  
+  //start here.
+  @ViewChild('futureAllocationinput', {static: false}) futureAllocationinput: ElementRef;
+  
+  
   title = 'Portfolio Balancer';
-
+  
   stocks: Stock[] = [
     {symbol: 'abc', price: 33.2, value: 0.0, quantity:0, currentAllocation: 0, futureAllocation: 0, changesNeeded: 'None' },
     {symbol: 'xyz', price: 33.2, value: 0.0, quantity:0, currentAllocation: 0, futureAllocation: 0, changesNeeded: 'None' }
   ];
   totalPresentValue: number = 0.0;
+  totalFutureValue: number = 0.0;
+  newAddition: number = 0.0;
+  cashTakeout: number = 0.0;
+  validationErrors: string = "";
 
   constructor(private financialSv: FinancialService) {}
 
@@ -47,11 +56,38 @@ export class AppComponent implements OnInit {
    */
   performCalculations(): void {
     console.log('Performing calculations');
-    this.fillStockParameters();
+    let validationResult = this.validateUserInput();
+    if (validationResult){
+      this.fillStockParameters();
+    }
     
   }
 
+  /**
+   * todo: start here
+   * This method valids user input. 
+   * It will only perform validation of the things that are not validate by Angular and HTML automatically.
+   */
+  validateUserInput(): boolean {
+    //ensure total percent is not over 100%
+    console.log("Validating user input");
+    let tempTotal: number = 0;
+    for (let stk of this.stocks){
+      tempTotal += stk.futureAllocation;
+    }
+    if (tempTotal > 100){
+      this.validationErrors = "Total of the Future Allocation cannot be more than 100%."
+      this.futureAllocationinput.nativeElement.focus();
+      return false;
+    }
+    return true;
+  }
+
   // todo: start here
+  /**
+   * This function fills all of the stock variable parameters. 
+   * It will also perform other calcualtions as a part of the fillign stock parameters
+   */
   private fillStockParameters(): void {
     console.log(this.financialSv.getCurrentPrice("tt"));
     
@@ -72,10 +108,10 @@ export class AppComponent implements OnInit {
     }
 
     //calculate changes needed based on future allocation
-    //todo: add support for additon and substrating of cash from total balance
+    this.totalFutureValue = ( this.totalPresentValue + this.newAddition - this.cashTakeout );
     for (let stock of this.stocks){
       let futureAllocationPercent = stock.futureAllocation / 100;
-      let futureVal = this.totalPresentValue * futureAllocationPercent;
+      let futureVal = this.totalFutureValue * futureAllocationPercent;
       if (stock.value > futureVal){
         stock.changesNeeded = "-" + (stock.value - futureVal);
       }else if (stock.value < futureVal){

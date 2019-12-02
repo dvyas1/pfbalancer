@@ -48,7 +48,7 @@
           <label> {{ stock.currentAllocation | percent }} </label>
         </td>
         <td>
-          <input class="form-control pb-form-control-sm" placeholder="0%" type="number" [(ngModel)]="stock.futureAllocation" >
+          <input #futureAllocationinput class="form-control pb-form-control-sm" placeholder="0%" type="number" [(ngModel)]="stock.futureAllocation" >
         </td>
         <td>
           <label> {{ stock.changesNeeded | currency }} </label>
@@ -106,7 +106,7 @@
           New Addition:
         </div>
         <div class="col-md-3">
-          <input class="form-control pb-form-control-md" type="number" placeholder="0.0" id="addition">
+          <input class="form-control pb-form-control-md" type="number" placeholder="0.0" [(ngModel)]="newAddition" >
         </div>
       </div>
 
@@ -115,12 +115,12 @@
           Cash Takeout:
         </div>
         <div class="col-md-3">
-          <input class="form-control pb-form-control-md" type="number" placeholder="0.0" id="takeout">
+          <input class="form-control pb-form-control-md" type="number" placeholder="0.0" [(ngModel)]="cashTakeout" >
         </div>
       </div>
       <div class="row">
-        <div class="col-md-5">
-          -------------------------------------------------------------------------
+        <div class="col-md-8">
+          -----------------------------------------------------------
         </div>
       </div>
       <div class="row">
@@ -128,7 +128,14 @@
           Total New Value:
         </div>
         <div class="col-md-3">
-          $0.0
+          {{ totalFutureValue | currency}}
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="row">
+        <div class="col validation-errors">
+          {{ validationErrors }}
         </div>
       </div>
     </div>
