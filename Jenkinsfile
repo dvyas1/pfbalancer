@@ -2,21 +2,15 @@ pipeline {
   agent {
     docker {
       args '-p 4200:4200'
-      image 'myimage:dev'
+      image 'node:slim'
     }
 
   }
   stages {
     stage('Install Angular Packages') {
       steps {
-        sh '''echo "Installing Angular CLI"
-pwd
-ls -ltr
-
-echo "angular install"
-npm install
-
-echo "Angular CLI and other required packages installed"'''
+        sh '''npm install
+'''
       }
     }
 
@@ -24,6 +18,12 @@ echo "Angular CLI and other required packages installed"'''
       steps {
         sh '''echo "Building application for PROD"
 ng build --prod'''
+      }
+    }
+
+    stage('package') {
+      steps {
+        archiveArtifacts(onlyIfSuccessful: true, artifacts: 'dist/')
       }
     }
 
