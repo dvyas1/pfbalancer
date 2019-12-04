@@ -1,16 +1,31 @@
 pipeline {
   agent {
     docker {
-      image 'node:6-alpine'
-      args '-p 3000:3000'
+      args '-p 4200:4200'
+      image 'node:slim'
     }
 
   }
   stages {
+    stage('Install Angular Packages') {
+      steps {
+        sh '''echo "Installing Angular CLI"
+npm uninstall -g angular-cli
+npm cache clean or npm cache verify #(if npm > 5)
+npm install -g @angular/cli@latest
+
+ng version
+
+npm install
+
+echo "Angular CLI and other required packages installed"'''
+      }
+    }
+
     stage('Build') {
       steps {
-        sh 'echo "Hello World"'
-        sh 'npm install'
+        sh '''echo "Building application for PROD"
+ng build --prod'''
       }
     }
 
