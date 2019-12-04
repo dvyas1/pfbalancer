@@ -9,20 +9,19 @@ pipeline {
   stages {
     stage('Install Angular Packages') {
       steps {
-        sh '''npm install
+        sh '''echo "Installing stuff"
+npm install
+ng version
+echo "installation complete"
 '''
       }
     }
 
     stage('Build') {
       steps {
-        sh 'ng build --prod'
-      }
-    }
-
-    stage('package') {
-      steps {
-        archiveArtifacts(onlyIfSuccessful: true, artifacts: 'dist/')
+        sh '''echo "building app"
+ng build --prod
+echo "build complete"'''
       }
     }
 
