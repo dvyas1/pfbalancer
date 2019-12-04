@@ -28,4 +28,7 @@ ng build --prod'''
     }
 
   }
+  environment {
+    HOME = '.'
+  }
 }
