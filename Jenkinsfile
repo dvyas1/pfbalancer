@@ -10,13 +10,11 @@ pipeline {
     stage('Install Angular Packages') {
       steps {
         sh '''echo "Installing Angular CLI"
-mkdir build
-cd build
 pwd
-
-
+ls -ltr
+echo "angular cli version"
 ng version
-
+echo "angular install"
 npm install
 
 echo "Angular CLI and other required packages installed"'''
