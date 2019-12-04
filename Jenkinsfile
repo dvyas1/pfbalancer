@@ -12,9 +12,10 @@ pipeline {
         sh '''echo "Installing Angular CLI"
 mkdir build
 cd build
+whoami
 pwd
-sudo mkdir /.npm
-sudo chown -R 111:115 "/.npm"
+mkdir /.npm
+
 npm uninstall -g angular-cli
 npm cache clean or npm cache verify #(if npm > 5)
 npm install -g @angular/cli@latest
