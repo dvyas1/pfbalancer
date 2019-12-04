@@ -12,8 +12,7 @@ pipeline {
         sh '''echo "Installing Angular CLI"
 pwd
 ls -ltr
-echo "angular cli version"
-ng version
+
 echo "angular install"
 npm install
 
