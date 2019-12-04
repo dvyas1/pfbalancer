@@ -13,7 +13,7 @@ pipeline {
 mkdir build
 cd build
 pwd
-mkdir /.npm
+sudo mkdir /.npm
 sudo chown -R 111:115 "/.npm"
 npm uninstall -g angular-cli
 npm cache clean or npm cache verify #(if npm > 5)
