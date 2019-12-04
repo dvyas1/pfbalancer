@@ -10,7 +10,6 @@ export class FinancialService {
   /**
    * todo: fill the logic
    * This method returns current price of the stock
-   * @param stockSymbol
    */
   getCurrentPrice(stockSymbol: string): number {
     return 10.0;

@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 
 import { Stock } from './stock';
-import { FinancialService } from './financial.service'
+import { FinancialService } from './financial.service';
 
 @Component({
   selector: 'app-root',
@@ -9,22 +9,22 @@ import { FinancialService } from './financial.service'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  
-  //start here.
+
+  // start here.
   @ViewChild('futureAllocationinput', {static: false}) futureAllocationinput: ElementRef;
-  
-  
+
+
   title = 'Portfolio Balancer';
-  
+
   stocks: Stock[] = [
-    {symbol: 'abc', price: 33.2, value: 0.0, quantity:0, currentAllocation: 0, futureAllocation: 0, changesNeeded: 'None' },
-    {symbol: 'xyz', price: 33.2, value: 0.0, quantity:0, currentAllocation: 0, futureAllocation: 0, changesNeeded: 'None' }
+    {symbol: 'abc', price: 33.2, value: 0.0, quantity: 0, currentAllocation: 0, futureAllocation: 0, changesNeeded: 'None' },
+    {symbol: 'xyz', price: 33.2, value: 0.0, quantity: 0, currentAllocation: 0, futureAllocation: 0, changesNeeded: 'None' }
   ];
-  totalPresentValue: number = 0.0;
-  totalFutureValue: number = 0.0;
-  newAddition: number = 0.0;
-  cashTakeout: number = 0.0;
-  validationErrors: string = "";
+  totalPresentValue = 0.0;
+  totalFutureValue = 0.0;
+  newAddition = 0.0;
+  cashTakeout = 0.0;
+  validationErrors = '';
 
   constructor(private financialSv: FinancialService) {}
 
@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
    */
   removeStock( stkSymble: string ): void {
     console.log('Removing Stock: ' + stkSymble);
-    let idx = this.stocks.findIndex(stock => stock.symbol ==  stkSymble);
+    const idx = this.stocks.findIndex(stock => stock.symbol ===  stkSymble);
     this.stocks.splice(idx, 1);
   }
 
@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
    */
   addStock(): void {
     console.log('Adding new stock line');
-    let stk: Stock = new Stock();
+    const stk: Stock = new Stock();
     this.stocks.push(stk);
   }
 
@@ -56,27 +56,27 @@ export class AppComponent implements OnInit {
    */
   performCalculations(): void {
     console.log('Performing calculations');
-    let validationResult = this.validateUserInput();
-    if (validationResult){
+    const validationResult = this.validateUserInput();
+    if (validationResult) {
       this.fillStockParameters();
     }
-    
+
   }
 
   /**
    * todo: start here
-   * This method valids user input. 
+   * This method valids user input.
    * It will only perform validation of the things that are not validate by Angular and HTML automatically.
    */
   validateUserInput(): boolean {
-    //ensure total percent is not over 100%
-    console.log("Validating user input");
-    let tempTotal: number = 0;
-    for (let stk of this.stocks){
+    // ensure total percent is not over 100%
+    console.log('Validating user input');
+    let tempTotal = 0;
+    for (const stk of this.stocks) {
       tempTotal += stk.futureAllocation;
     }
-    if (tempTotal > 100){
-      this.validationErrors = "Total of the Future Allocation cannot be more than 100%."
+    if (tempTotal > 100) {
+      this.validationErrors = 'Total of the Future Allocation cannot be more than 100%.';
       this.futureAllocationinput.nativeElement.focus();
       return false;
     }
@@ -85,39 +85,39 @@ export class AppComponent implements OnInit {
 
   // todo: start here
   /**
-   * This function fills all of the stock variable parameters. 
+   * This function fills all of the stock variable parameters.
    * It will also perform other calcualtions as a part of the fillign stock parameters
    */
   private fillStockParameters(): void {
-    console.log(this.financialSv.getCurrentPrice("tt"));
-    
-    //set total present value to 0 as we will be calculating it again below
+    console.log(this.financialSv.getCurrentPrice('tt'));
+
+    // set total present value to 0 as we will be calculating it again below
     this.totalPresentValue = 0.0;
 
-    for (let stock of this.stocks){
+    for (const stock of this.stocks) {
       stock.price = this.financialSv.getCurrentPrice(stock.symbol);
-      stock.quantity = stock.value == 0 ? 0 : (stock.value / stock.price);
+      stock.quantity = stock.value === 0 ? 0 : (stock.value / stock.price);
 
-      //increase stock value to total present value
+      // increase stock value to total present value
       this.totalPresentValue += stock.value;
     }
 
-    //calculate current allocation of each asset/stock
-    for (let stock of this.stocks){
+    // calculate current allocation of each asset/stock
+    for (const stock of this.stocks) {
       stock.currentAllocation = (((stock.value * 100) / this.totalPresentValue)) / 100;
     }
 
-    //calculate changes needed based on future allocation
+    // calculate changes needed based on future allocation
     this.totalFutureValue = ( this.totalPresentValue + this.newAddition - this.cashTakeout );
-    for (let stock of this.stocks){
-      let futureAllocationPercent = stock.futureAllocation / 100;
-      let futureVal = this.totalFutureValue * futureAllocationPercent;
-      if (stock.value > futureVal){
-        stock.changesNeeded = "-" + (stock.value - futureVal);
-      }else if (stock.value < futureVal){
-        stock.changesNeeded = "+" + (futureVal - stock.value);
-      }else{
-        stock.changesNeeded = "None"
+    for (const stock of this.stocks) {
+      const futureAllocationPercent = stock.futureAllocation / 100;
+      const futureVal = this.totalFutureValue * futureAllocationPercent;
+      if (stock.value > futureVal) {
+        stock.changesNeeded = '-' + (stock.value - futureVal);
+      } else if (stock.value < futureVal) {
+        stock.changesNeeded = '+' + (futureVal - stock.value);
+      } else {
+        stock.changesNeeded = 'None';
       }
     }
 
