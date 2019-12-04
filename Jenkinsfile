@@ -12,7 +12,6 @@ pipeline {
         sh '''echo "Installing Angular CLI"
 mkdir build
 cd build
-whoami
 pwd
 
 
