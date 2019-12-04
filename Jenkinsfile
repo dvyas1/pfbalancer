@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       args '-p 4200:4200'
-      image 'node:slim'
+      image 'node:latest'
     }
 
   }
@@ -16,8 +16,7 @@ pipeline {
 
     stage('Build') {
       steps {
-        sh '''echo "Building application for PROD"
-ng build --prod'''
+        sh 'ng build --prod'
       }
     }
 
