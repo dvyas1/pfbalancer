@@ -12,6 +12,7 @@ pipeline {
         sh '''echo "Installing Angular CLI"
 mkdir build
 cd build
+pwd
 mkdir /.npm
 sudo chown -R 111:115 "/.npm"
 npm uninstall -g angular-cli
