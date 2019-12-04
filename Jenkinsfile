@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       args '-p 4200:4200'
-      image 'ubuntu:latest'
+      image 'node:latest'
     }
 
   }
@@ -14,11 +14,11 @@ mkdir build
 cd build
 whoami
 pwd
-mkdir /.npm
 
-npm uninstall -g angular-cli
+
+npm uninstall angular-cli
 npm cache clean or npm cache verify #(if npm > 5)
-npm install -g @angular/cli@latest
+npm install @angular/cli@latest
 
 ng version
 
