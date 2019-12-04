@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       args '-p 4200:4200'
-      image 'node:slim'
+      image 'node:latest'
     }
 
   }
