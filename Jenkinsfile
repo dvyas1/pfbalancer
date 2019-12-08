@@ -24,7 +24,7 @@ echo "$PATH"'''
     stage('Build') {
       steps {
         sh '''echo "building app"
-ng build --prod
+npm run ng build --prod
 echo "build complete"'''
       }
     }
