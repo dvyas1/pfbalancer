@@ -13,7 +13,12 @@ pipeline {
 npm install
 ng version
 echo "installation complete"
-'''
+echo "*********************************"
+echo "regular path"
+echo \'$PATH\'
+echo \'#################################\'
+echo \'jenkins path\'
+echo "$PATH"'''
       }
     }
 
