@@ -11,7 +11,6 @@ pipeline {
       steps {
         sh '''echo "Installing stuff"
 npm install
-ng version
 echo "installation complete"
 echo "*********************************"
 echo "regular path"
