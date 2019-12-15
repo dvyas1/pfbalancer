@@ -11,7 +11,6 @@ pipeline {
       steps {
         sh '''echo "Installing stuff"
 npm install
-apt-get install tree --yes
 pip3 install awscli --upgrade --user
 echo "Installation complete"'''
       }
@@ -23,8 +22,9 @@ echo "Installation complete"'''
 npm run ng build --prod
 echo "build complete"
 
-echo "tree output"
-tree'''
+echo "*****************************"
+ls -R
+echo "*****************************"'''
       }
     }
 
