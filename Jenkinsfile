@@ -11,7 +11,7 @@ pipeline {
       steps {
         sh '''echo "Installing stuff"
 npm install
-sudo apt-get install tree --yes
+apt-get install tree --yes
 pip3 install awscli --upgrade --user
 echo "Installation complete"'''
       }
