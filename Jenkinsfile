@@ -1,7 +1,7 @@
 pipeline {
   agent none
   stages {
-    stage('Install Packages') {
+    stage('Build App') {
       agent {
         docker {
           args '-p 4200:4200'
@@ -10,41 +10,12 @@ pipeline {
 
       }
       steps {
-        sh '''echo "Installing stuff"
+        sh '''echo "Installing NPM Packages"
 npm install
 echo "Installation complete"'''
-      }
-    }
-
-    stage('Build') {
-      agent {
-        docker {
-          args '-p 4200:4200'
-          image 'node:latest'
-        }
-
-      }
-      steps {
-        sh '''echo "building app"
-npm install
+        sh '''echo "Build App"
 npm run ng build --prod
-echo "build complete"
-
-echo "*****************************"
-pwd
-echo "*****************************"'''
-      }
-    }
-
-    stage('Package Deployment') {
-      agent {
-        docker {
-          args '-p 4200:4200'
-          image 'node:latest'
-        }
-
-      }
-      steps {
+echo "Build App Complete"'''
         archiveArtifacts(artifacts: 'dist/PortfolioBalancer6/*.*', fingerprint: true)
       }
     }
@@ -58,7 +29,10 @@ echo "*****************************"'''
       }
       steps {
         echo 'Testing Message'
-        sh 'ls -ltr'
+        sh '''pwd
+echo "****************************"
+ls -R
+echo "****************************"'''
       }
     }
 
