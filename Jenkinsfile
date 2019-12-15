@@ -23,14 +23,13 @@ echo "build complete"
 
 echo "*****************************"
 pwd
-ls -R
 echo "*****************************"'''
       }
     }
 
     stage('Package Deployment') {
       steps {
-        archiveArtifacts(artifacts: '*.*', fingerprint: true)
+        archiveArtifacts(artifacts: './dist/PortfolioBalancer6/*.*', fingerprint: true)
       }
     }
 
