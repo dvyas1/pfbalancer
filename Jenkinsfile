@@ -29,7 +29,20 @@ echo "*****************************"'''
 
     stage('Package Deployment') {
       steps {
-        archiveArtifacts(artifacts: './dist/PortfolioBalancer6/*.*', fingerprint: true)
+        archiveArtifacts(artifacts: 'dist/PortfolioBalancer6/*.*', fingerprint: true)
+      }
+    }
+
+    stage('Deploy to S3') {
+      agent {
+        docker {
+          image 'mikesir87/aws-cli:latest'
+        }
+
+      }
+      steps {
+        echo 'Testing Message'
+        sh 'ls -ltr'
       }
     }
 
