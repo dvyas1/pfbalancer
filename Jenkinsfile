@@ -7,11 +7,13 @@ pipeline {
 
   }
   stages {
-    stage('Install Angular Packages') {
+    stage('Install Packages') {
       steps {
         sh '''echo "Installing stuff"
 npm install
-echo "installation complete"'''
+sudo apt-get install tree --yes
+pip3 install awscli --upgrade --user
+echo "Installation complete"'''
       }
     }
 
@@ -19,7 +21,10 @@ echo "installation complete"'''
       steps {
         sh '''echo "building app"
 npm run ng build --prod
-echo "build complete"'''
+echo "build complete"
+
+echo "tree output"
+tree'''
       }
     }
 
