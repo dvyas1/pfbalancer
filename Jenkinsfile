@@ -11,7 +11,6 @@ pipeline {
       steps {
         sh '''echo "Installing stuff"
 npm install
-pip3 install awscli --upgrade --user
 echo "Installation complete"'''
       }
     }
@@ -23,6 +22,7 @@ npm run ng build --prod
 echo "build complete"
 
 echo "*****************************"
+pwd
 ls -R
 echo "*****************************"'''
       }
@@ -30,7 +30,7 @@ echo "*****************************"'''
 
     stage('Package Deployment') {
       steps {
-        archiveArtifacts(artifacts: 'dist/*', fingerprint: true)
+        archiveArtifacts(artifacts: '*.*', fingerprint: true)
       }
     }
 
