@@ -11,13 +11,7 @@ pipeline {
       steps {
         sh '''echo "Installing stuff"
 npm install
-echo "installation complete"
-echo "*********************************"
-echo "regular path"
-echo \'$PATH\'
-echo \'#################################\'
-echo \'jenkins path\'
-echo "$PATH"'''
+echo "installation complete"'''
       }
     }
 
@@ -26,6 +20,12 @@ echo "$PATH"'''
         sh '''echo "building app"
 npm run ng build --prod
 echo "build complete"'''
+      }
+    }
+
+    stage('Package Deployment') {
+      steps {
+        archiveArtifacts(artifacts: 'dist/*.*', fingerprint: true)
       }
     }
 
