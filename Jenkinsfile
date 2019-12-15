@@ -1,6 +1,5 @@
 pipeline {
   agent none
-  
   stages {
     stage('Install Packages') {
       agent {
@@ -8,6 +7,7 @@ pipeline {
           args '-p 4200:4200'
           image 'node:latest'
         }
+
       }
       steps {
         sh '''echo "Installing stuff"
@@ -22,9 +22,11 @@ echo "Installation complete"'''
           args '-p 4200:4200'
           image 'node:latest'
         }
+
       }
       steps {
         sh '''echo "building app"
+npm install
 npm run ng build --prod
 echo "build complete"
 
@@ -40,6 +42,7 @@ echo "*****************************"'''
           args '-p 4200:4200'
           image 'node:latest'
         }
+
       }
       steps {
         archiveArtifacts(artifacts: 'dist/PortfolioBalancer6/*.*', fingerprint: true)
@@ -51,6 +54,7 @@ echo "*****************************"'''
         docker {
           image 'mikesir87/aws-cli:latest'
         }
+
       }
       steps {
         echo 'Testing Message'
