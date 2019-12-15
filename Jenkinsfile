@@ -25,7 +25,7 @@ echo "build complete"'''
 
     stage('Package Deployment') {
       steps {
-        archiveArtifacts(artifacts: 'dist/*.*', fingerprint: true)
+        archiveArtifacts(artifacts: 'dist/*', fingerprint: true)
       }
     }
 
