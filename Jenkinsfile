@@ -27,6 +27,7 @@ echo "Build App Complete"'''
       steps {
 
         script {
+          echo "${params}"
           def bucketName = ''
           if (env.BRANCH_NAME == 'master') {
             echo 'This is a master branch'
