@@ -47,10 +47,8 @@ echo "Build App Complete"'''
           echo deploymentBkt
         }
 
-        sh '''aws --version
-echo "*********************"
-echo "bkt: ${bucketName}"
-echo "*********************"'''
+        sh "echo bkt: ${bucketName}"
+
       }
     }
 
