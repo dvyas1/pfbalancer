@@ -1,3 +1,8 @@
+
+
+deploymentBkt = ''
+
+
 pipeline {
   agent {
     dockerfile {
@@ -28,24 +33,23 @@ echo "Build App Complete"'''
 
         script {
           echo "${params}"
-          def bucketName = ''
           if (env.BRANCH_NAME == 'master') {
             echo 'This is a master branch'
-            bucketName = "${params.masterbucket}"
+            deploymentBkt = "${params.masterbucket}"
           } else if (env.BRANCH_NAME == 'develop') {
             echo 'This is a develop branch'
-            bucketName = "${params.developbucket}"
+            deploymentBkt = "${params.developbucket}"
           } else {
             echo 'this is a temp branch'
             echo "${params.tempbucket}"
-            bucketName = "${params.tempbucket}"
+            deploymentBkt = "${params.tempbucket}"
           }
-          echo bucketName
+          echo deploymentBkt
         }
 
         sh '''aws --version
 echo "*********************"
-echo "bkt: ${bucketName}"
+echo "bkt: ${deploymentBkt}"
 echo "*********************"'''
       }
     }
