@@ -6,9 +6,9 @@ pipeline {
   }
 
   parameters {
-    string(name: 'devops-bucket', defaultValue: '' description: 'Bucket name for develop branch')
-    string(name: 'master-bucket', defaultValue: '' description: 'Bucket name for master branch')
-    string(name: 'temp-bucket', defaultValue: '' description: 'Bucket name for any other non-standard branch')
+    string(name: 'devops-bucket', defaultValue: '', description: 'Bucket name for develop branch')
+    string(name: 'master-bucket', defaultValue: '', description: 'Bucket name for master branch')
+    string(name: 'temp-bucket', defaultValue: '', description: 'Bucket name for any other non-standard branch')
   }
 
   stages {
