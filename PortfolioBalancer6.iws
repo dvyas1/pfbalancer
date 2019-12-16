@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ea1fb04-0d33-4355-8409-ef3f6ac9f237" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/PortfolioBalancer6.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/PortfolioBalancer6.ipr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PortfolioBalancer6.iws" beforeDir="false" afterPath="$PROJECT_DIR$/PortfolioBalancer6.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PortfolioBalancer.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/PortfolioBalancer.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PortfolioBalancer.iws" beforeDir="false" afterPath="$PROJECT_DIR$/PortfolioBalancer.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/angular.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
