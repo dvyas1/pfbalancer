@@ -3,14 +3,8 @@ pipeline {
     dockerfile {
       filename 'Dockerfile.build'
     }
-  }
 
-  parameters {
-    string(name: 'devopsbucket', defaultValue: '', description: 'Bucket name for develop branch')
-    string(name: 'masterbucket', defaultValue: '', description: 'Bucket name for master branch')
-    string(name: 'tempbucket', defaultValue: '', description: 'Bucket name for any other non-standard branch')
   }
-
   stages {
     stage('Build App') {
       steps {
@@ -25,7 +19,6 @@ echo "Build App Complete"'''
 
     stage('Deploy to S3') {
       steps {
-
         script {
           echo "${params}"
           def bucketName = ''
@@ -43,15 +36,17 @@ echo "Build App Complete"'''
           echo bucketName
         }
 
-        sh '''aws --version
-echo "*********************"
-echo "bkt: ${bucketName}"
-echo "*********************"'''
+        sh 'echo ${bucketName}'
       }
     }
 
   }
   environment {
     HOME = '.'
+  }
+  parameters {
+    string(name: 'devopsbucket', defaultValue: '', description: 'Bucket name for develop branch')
+    string(name: 'masterbucket', defaultValue: '', description: 'Bucket name for master branch')
+    string(name: 'tempbucket', defaultValue: '', description: 'Bucket name for any other non-standard branch')
   }
 }
