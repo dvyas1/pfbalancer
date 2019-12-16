@@ -47,7 +47,7 @@ echo "Build App Complete"'''
           echo deploymentBkt
         }
 
-        sh "echo bkt: ${bucketName}"
+        sh "echo bkt: ${deploymentBkt}"
 
       }
     }
