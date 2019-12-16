@@ -30,13 +30,13 @@ echo "Build App Complete"'''
           def bucketName = ''
           if (env.BRANCH_NAME == 'master') {
             echo 'This is a master branch'
-            bucketName = params.master-bucket
+            bucketName = "${params.master-bucket}"
           } else if (env.BRANCH_NAME == 'develop') {
             echo 'This is a develop branch'
-            bucketName = params.develop-bucket
+            bucketName = "${params.develop-bucket}"
           } else {
             echo 'this is a temp branch'
-            bucketName = params.develop-bucket
+            bucketName = "${params.develop-bucket}"
           }
           echo bucketName
         }
