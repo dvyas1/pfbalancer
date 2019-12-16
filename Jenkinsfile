@@ -37,7 +37,8 @@ echo "Build App Complete"'''
             bucketName = "${params.developbucket}"
           } else {
             echo 'this is a temp branch'
-            bucketName = "${params.developbucket}"
+            echo "${params.tempbucket}"
+            bucketName = "${params.tempbucket}"
           }
           echo bucketName
         }
