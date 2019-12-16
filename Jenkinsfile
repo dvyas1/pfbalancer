@@ -2,6 +2,14 @@
 
 deploymentBkt = ''
 
+/**
+* This method generates S3 Bucket name based on branch
+*/
+deploymentBkt = ""
+def generateBucketName() {
+  def bktName = "pfbalancer001"
+  bktName = bktName + env.BRANCH_NAME + Math.random()
+}
 
 pipeline {
   agent {
@@ -32,23 +40,13 @@ echo "Build App Complete"'''
       steps {
 
         script {
-          echo "${params}"
-          if (env.BRANCH_NAME == 'master') {
-            echo 'This is a master branch'
-            deploymentBkt = "${params.masterbucket}"
-          } else if (env.BRANCH_NAME == 'develop') {
-            echo 'This is a develop branch'
-            deploymentBkt = "${params.developbucket}"
-          } else {
-            echo 'this is a temp branch'
-            echo "${params.tempbucket}"
-            deploymentBkt = "${params.tempbucket}"
-          }
-          echo deploymentBkt
+          deploymentBkt = generateBucketName()
+          echo "bucketname ${deploymentBkt}"
         }
 
-        sh "echo bkt: ${deploymentBkt}"
-
+        sh "aws s3api create-bucket --bucket ${deploymentBkt} --region us-east-1 --acl private"
+        sh "aws s3 cp dist s3://${deploymentBkt}/ --recursive"
+        
       }
     }
 
