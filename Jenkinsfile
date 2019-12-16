@@ -1,15 +1,11 @@
 
-
-deploymentBkt = ''
-
 /**
 * This method generates S3 Bucket name based on branch
 */
 deploymentBkt = ""
 def generateBucketName() {
-  def bktName = "pfbalancer001"
-  bktName = bktName + env.BRANCH_NAME + Math.random()
-}
+  return "pfbalancer-" + env.BRANCH_NAME + "-" + "${currentBuild.number}"
+} 
 
 pipeline {
   agent {
@@ -27,12 +23,8 @@ pipeline {
   stages {
     stage('Build App') {
       steps {
-        sh '''echo "Installing NPM Packages"
-npm install
-echo "Installation complete"'''
-        sh '''echo "Build App"
-npm run ng build --prod
-echo "Build App Complete"'''
+        sh "npm install"
+        sh "npm run ng build --prod"
       }
     }
 
@@ -41,7 +33,7 @@ echo "Build App Complete"'''
 
         script {
           deploymentBkt = generateBucketName()
-          echo "bucketname ${deploymentBkt}"
+          echo "deployment bucketname:" + deploymentBkt
         }
 
         sh "aws s3api create-bucket --bucket ${deploymentBkt} --region us-east-1 --acl private"
