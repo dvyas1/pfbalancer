@@ -1,60 +1,30 @@
 pipeline {
-  agent none
-  
+  agent {
+    dockerfile {
+      filename 'Dockerfile.build'
+      label 'main-agent'
+    }
+  }
   stages {
-    stage('Install Packages') {
-      agent {
-        docker {
-          args '-p 4200:4200'
-          image 'node:latest'
-        }
-      }
+    stage('Build App') {
       steps {
-        sh '''echo "Installing stuff"
+        sh '''echo "Installing NPM Packages"
 npm install
 echo "Installation complete"'''
-      }
-    }
-
-    stage('Build') {
-      agent {
-        docker {
-          args '-p 4200:4200'
-          image 'node:latest'
-        }
-      }
-      steps {
-        sh '''echo "building app"
+        sh '''echo "Build App"
 npm run ng build --prod
-echo "build complete"
-
-echo "*****************************"
-pwd
-echo "*****************************"'''
-      }
-    }
-
-    stage('Package Deployment') {
-      agent {
-        docker {
-          args '-p 4200:4200'
-          image 'node:latest'
-        }
-      }
-      steps {
+echo "Build App Complete"'''
         archiveArtifacts(artifacts: 'dist/PortfolioBalancer6/*.*', fingerprint: true)
       }
     }
 
     stage('Deploy to S3') {
-      agent {
-        docker {
-          image 'mikesir87/aws-cli:latest'
-        }
-      }
       steps {
         echo 'Testing Message'
-        sh 'ls -ltr'
+        sh '''pwd
+echo "****************************"
+ls -R
+echo "****************************"'''
       }
     }
 
