@@ -29,7 +29,7 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PortfolioBalancer6.iml" filepath="$PROJECT_DIR$/PortfolioBalancer6.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PortfolioBalancer.iml" filepath="$PROJECT_DIR$/PortfolioBalancer.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager">

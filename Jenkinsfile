@@ -1,37 +1,54 @@
+
+/**
+* This method generates S3 Bucket name based on branch
+*/
+deploymentBkt = ""
+def generateBucketName() {
+  return "pfbalancer-" + env.BRANCH_NAME + "-" + "${currentBuild.number}"
+} 
+
 pipeline {
   agent {
-    docker {
-      args '-p 4200:4200'
-      image 'node:slim'
+    dockerfile {
+      filename 'Dockerfile.build'
+    }
+  }
+
+  stages {
+    stage('Build App') {
+      steps {
+        sh "npm install"
+        sh "npm run ng build --prod"
+      }
+    }
+
+    stage('Deploy to S3') {
+      steps {
+
+        //get bucket name
+        script {
+          deploymentBkt = generateBucketName()
+          echo "deployment bucketname:" + deploymentBkt
+        }
+
+        //create bucket
+        sh "aws s3api create-bucket --bucket ${deploymentBkt} --region us-east-1 --acl public-read"
+        // copy resources
+        sh "aws s3 cp dist/PortfolioBalancer s3://${deploymentBkt}/ --recursive"
+        //mark bucket as website
+        sh "aws s3 website s3://${deploymentBkt}/ --index-document index.html --error-document index.html"
+        //create bucket policy
+        writeFile file: "policy.json", text: "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":\"*\",\"Action\":\"s3:GetObject\",\"Resource\":\"arn:aws:s3:::${deploymentBkt}/*\"}]}"
+        //sh "cat policy.json"
+        //apply policy to bucket
+        sh "aws s3api put-bucket-policy --bucket ${deploymentBkt} --policy file://policy.json"
+
+      }
+      
     }
 
   }
-  stages {
-    stage('Install Angular Packages') {
-      steps {
-        sh '''echo "Installing Angular CLI"
-mkdir build
-cd build
-mkdir /.npm
-sudo chown -R 111:115 "/.npm"
-npm uninstall -g angular-cli
-npm cache clean or npm cache verify #(if npm > 5)
-npm install -g @angular/cli@latest
-
-ng version
-
-npm install
-
-echo "Angular CLI and other required packages installed"'''
-      }
-    }
-
-    stage('Build') {
-      steps {
-        sh '''echo "Building application for PROD"
-ng build --prod'''
-      }
-    }
-
+  environment {
+    HOME = '.'
   }
 }
