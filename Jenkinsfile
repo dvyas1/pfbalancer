@@ -36,8 +36,8 @@ pipeline {
           echo "deployment bucketname:" + deploymentBkt
         }
 
-        sh "aws s3api create-bucket --bucket ${deploymentBkt} --region us-east-1 --acl private"
-        sh "aws s3 cp dist s3://${deploymentBkt}/ --recursive"
+        sh "aws s3api create-bucket --bucket ${deploymentBkt} --region us-east-1 --acl public-read"
+        sh "aws s3 cp dist/PortfolioBalancer s3://${deploymentBkt}/ --recursive"
         
       }
     }
