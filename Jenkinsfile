@@ -14,12 +14,6 @@ pipeline {
     }
   }
 
-  parameters {
-    string(name: 'devopsbucket', defaultValue: '', description: 'Bucket name for develop branch')
-    string(name: 'masterbucket', defaultValue: '', description: 'Bucket name for master branch')
-    string(name: 'tempbucket', defaultValue: '', description: 'Bucket name for any other non-standard branch')
-  }
-
   stages {
     stage('Build App') {
       steps {
@@ -38,8 +32,10 @@ pipeline {
 
         sh "aws s3api create-bucket --bucket ${deploymentBkt} --region us-east-1 --acl public-read"
         sh "aws s3 cp dist/PortfolioBalancer s3://${deploymentBkt}/ --recursive"
-        
+        sh "aws s3 website s3://${deploymentBkt}/ --index-document index.html --error-document index.html"
+
       }
+      
     }
 
   }
