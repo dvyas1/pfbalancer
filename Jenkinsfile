@@ -18,7 +18,7 @@ pipeline {
     stage('Build App') {
       steps {
         sh "npm install"
-        sh "npm run ng build --prod"
+        sh "npm run ci-build-prod"
       }
     }
 
