@@ -17,3 +17,5 @@ RUN aws --version
 RUN apt-get install -y libappindicator1 fonts-liberation wget
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN dpkg -i google-chrome*.deb; apt-get -fy install
+RUN echo 'kernel.unprivileged_userns_clone=1' > /etc/sysctl.d/00-local-userns.conf
+RUN service procps restart
