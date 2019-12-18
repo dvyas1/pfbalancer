@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to PortfolioBalancer!');
+    expect(page.getTitleText()).toEqual('Portfolio Balancer (Alpha)');
   });
 
   afterEach(async () => {

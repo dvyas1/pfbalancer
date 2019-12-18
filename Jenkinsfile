@@ -18,7 +18,34 @@ pipeline {
     stage('Build App') {
       steps {
         sh "npm install"
-        sh "npm run ng build --prod"
+        sh "npm run ci-build-prod"
+      }
+    }
+    
+    stage('Run Tests') {
+      parallel {
+        stage('Run Unit Tests') {
+          steps {
+            sh "npm run ci-test"
+          }
+          post {
+            always {
+              junit 'karma-junit/*.xml'
+            }
+          }
+        }
+
+        stage('Run e2e Integration Tests') {
+          steps {
+            sh "npm run e2e"
+          }
+
+          post {
+            always {
+              junit 'e2e-testresults-junit/*.xml'
+            }
+          }
+        }
       }
     }
 

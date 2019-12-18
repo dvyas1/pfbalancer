@@ -6,6 +6,9 @@
 /out-tsc
 # Only exists if Bazel was run
 /bazel-out
+/coverage
+/karma-junit
+/e2e-testresults-junit
 
 # dependencies
 /node_modules

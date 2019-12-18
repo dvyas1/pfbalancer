@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "ci-test": "ng test --browsers ChromeHeadlessNoSandbox --code-coverage --reporters junit",
+    "ci-build-prod": "ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -43,6 +45,8 @@
     "karma-coverage-istanbul-reporter": "~2.1.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
+    "karma-junit-reporter": "~2.0.1",
+    "jasmine-reporters": "~2.3.2",
     "protractor": "~5.4.0",
     "ts-node": "^8.5.4",
     "tslint": "~5.20.1",

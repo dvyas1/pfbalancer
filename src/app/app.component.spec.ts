@@ -34,4 +34,13 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Portfolio Balancer');
   });
+
+  it('#addStock() should add stock to master list', () => {
+    const app = TestBed.createComponent(AppComponent).debugElement.componentInstance;
+    console.log("Current List:" + app.stocks);
+    expect(app.stocks.length).toBe(2, "only two elements at first");
+    app.addStock();
+    expect(app.stocks.length).toBe(3, "three element after addStock() call");
+  });
+
 });
