@@ -22,6 +22,18 @@ pipeline {
       }
     }
 
+    stage('Run Unit Tests') {
+      steps {
+        sh "npm ng test --browsers=ChromeHeadless --code-coverage --reporters junit"
+      }
+    }
+
+    stage('Run End to End Integration Tests') {
+      steps {
+        sh "npm ng e2e"
+      }
+    }
+
     stage('Deploy to S3') {
       steps {
 
