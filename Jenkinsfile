@@ -21,16 +21,31 @@ pipeline {
         sh "npm run ci-build-prod"
       }
     }
+    
+    stage('Run Tests') {
+      parallel {
+        stage('Run Unit Tests') {
+          steps {
+            sh "npm run ci-test"
+          }
+          post {
+            always {
+              junit 'karma-junit/*.xml'
+            }
+          }
+        }
 
-    stage('Run Unit Tests') {
-      steps {
-        sh "npm run ci-test"
-      }
-    }
+        stage('Run e2e Integration Tests') {
+          steps {
+            sh "npm run e2e"
+          }
 
-    stage('Run End to End Integration Tests') {
-      steps {
-        sh "npm run e2e"
+          post {
+            always {
+              junit 'e2e-testresults-junit/*.xml'
+            }
+          }
+        }
       }
     }
 
