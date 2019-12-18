@@ -14,7 +14,7 @@ RUN pip3 install awscli --upgrade
 RUN aws --version
 
 #Install Google Chrome
-RUN apt-get install -y libappindicator1 fonts-liberation
+RUN apt-get install -y libappindicator1 fonts-liberation wget
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN dpkg -i google-chrome*.deb
 RUN apt-get -f install
