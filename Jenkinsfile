@@ -24,13 +24,13 @@ pipeline {
 
     stage('Run Unit Tests') {
       steps {
-        sh "npm ng test --browsers=ChromeHeadless --code-coverage --reporters junit"
+        sh "npm run ci-test"
       }
     }
 
     stage('Run End to End Integration Tests') {
       steps {
-        sh "npm ng e2e"
+        sh "npm run e2e"
       }
     }
 
