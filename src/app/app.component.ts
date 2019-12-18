@@ -17,8 +17,8 @@ export class AppComponent implements OnInit {
   title = 'Portfolio Balancer';
 
   stocks: Stock[] = [
-    {symbol: 'abc', price: 33.2, value: 0.0, quantity: 0, currentAllocation: 0, futureAllocation: 0, changesNeeded: 'None' },
-    {symbol: 'xyz', price: 33.2, value: 0.0, quantity: 0, currentAllocation: 0, futureAllocation: 0, changesNeeded: 'None' }
+    {symbol: 'abc', price: 33.2, value: 0.0, quantity: 0, currentAllocation: 0, futureAllocation: 0, changesNeeded: '0.0' },
+    {symbol: 'xyz', price: 33.2, value: 0.0, quantity: 0, currentAllocation: 0, futureAllocation: 0, changesNeeded: '0.0' }
   ];
   totalPresentValue = 0.0;
   totalFutureValue = 0.0;
