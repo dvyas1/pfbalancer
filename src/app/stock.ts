@@ -11,11 +11,5 @@ export class Stock {
   futureAllocation: number;
   changesNeeded: string;
 
-
-  static validateRequiredVals(): boolean {
-    console.log('Validating Stock required field');
-    return true;
-  }
-
 }
 

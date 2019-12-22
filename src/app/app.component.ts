@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
    * This function and empty row for a new stock
    */
   addStock(): void {
-    console.log('Adding new stock line');
+    console.log('Adding new empty stock');
     const stk: Stock = new Stock();
     this.stocks.push(stk);
   }
