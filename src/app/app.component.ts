@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 
 import { Stock } from './stock';
 import { FinancialService } from './financial.service';
+import { isEmptyExpression } from '@angular/compiler';
 
 @Component({
   selector: 'app-root',
@@ -12,13 +13,17 @@ export class AppComponent implements OnInit {
 
   // start here.
   @ViewChild('futureAllocationinput', {static: false}) futureAllocationinput: ElementRef;
+  @ViewChild('stockValueInput', {static: false}) stockValueInput: ElementRef;
+  @ViewChild('stockSymbolInput', {static: false}) stockSymbolInput: ElementRef;
+  @ViewChild('newAdditionInput', {static: false}) newAdditionInput: ElementRef;
+  @ViewChild('cashTakeoutInput', {static: false}) cashTakeoutInput: ElementRef;
 
 
   title = 'Portfolio Balancer';
 
   stocks: Stock[] = [
-    {symbol: 'abc', price: 33.2, value: 0.0, quantity: 0, currentAllocation: 0, futureAllocation: 0, changesNeeded: '0.0' },
-    {symbol: 'xyz', price: 33.2, value: 0.0, quantity: 0, currentAllocation: 0, futureAllocation: 0, changesNeeded: '0.0' }
+    {symbol: 'aapl', price: 0.0, value: 0.0, quantity: 0, currentAllocation: 0, futureAllocation: 0, changesNeeded: '0.0' },
+    {symbol: 'msft', price: 0.0, value: 0.0, quantity: 0, currentAllocation: 0, futureAllocation: 0, changesNeeded: '0.0' }
   ];
   totalPresentValue = 0.0;
   totalFutureValue = 0.0;
@@ -58,6 +63,7 @@ export class AppComponent implements OnInit {
     console.log('Performing calculations');
     const validationResult = this.validateUserInput();
     if (validationResult) {
+      this.stocks = this.clearCalculatedFileds(this.stocks);
       this.fillStockParameters();
     }
 
@@ -71,15 +77,47 @@ export class AppComponent implements OnInit {
   validateUserInput(): boolean {
     // ensure total percent is not over 100%
     console.log('Validating user input');
+    this.validationErrors = "";
+
+    //validate future allocations
     let tempTotal = 0;
     for (const stk of this.stocks) {
       tempTotal += stk.futureAllocation;
     }
-    if (tempTotal > 100) {
-      this.validationErrors = 'Total of the Future Allocation cannot be more than 100%.';
+    if (tempTotal != 100) {
+      this.validationErrors = 'Total of the Future Allocation must be equals to 100%.';
       this.futureAllocationinput.nativeElement.focus();
       return false;
     }
+
+    //validate present value and stock symbol
+    for (const stk of this.stocks) {
+      if (stk.value <= 0) {
+        this.validationErrors = 'The present value of stock must be greater than $0.';
+        this.stockValueInput.nativeElement.focus();
+        return false;
+      }
+
+      if (stk.symbol === ''){
+        this.validationErrors = 'The stock symbol cannot be empty.';
+        this.stockSymbolInput.nativeElement.focus();
+        return false;
+      }
+    }
+
+    //verify cash addition or takeout is non-negative
+    if (this.newAddition < 0) {
+      this.validationErrors = 'New cash addition to portfolio cannot be negative!'
+      this.newAdditionInput.nativeElement.focus();
+      return false;
+    }
+
+    if (this.cashTakeout < 0) {
+      this.validationErrors = 'Cash takeout from portfolio cannot be negative!';
+      this.cashTakeoutInput.nativeElement.focus();
+      return false;
+    }
+
     return true;
   }
 
@@ -117,11 +155,25 @@ export class AppComponent implements OnInit {
       } else if (stock.value < futureVal) {
         stock.changesNeeded = '+' + (futureVal - stock.value);
       } else {
-        stock.changesNeeded = 'None';
+        stock.changesNeeded = '0.0';
       }
     }
 
   }
 
+  /**
+   * This function clearns all of the calculated fields from stocks. 
+   * This should be done before performing final calculations to remove previous results
+   * @param stks Array of stocks
+   */
+  private clearCalculatedFileds( stks: Stock[]){
+    for (const stk of stks) {
+      stk.price = 0.0;
+      stk.quantity = 0;
+      stk.currentAllocation = 0;
+      stk.changesNeeded = '0.0';
+    }
+    return stks;
+  }
 
 }

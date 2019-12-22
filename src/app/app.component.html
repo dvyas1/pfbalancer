@@ -33,7 +33,7 @@
       <tbody>
       <tr *ngFor="let stock of stocks">
         <th scope="row">
-          <input class="form-control pb-form-control-sm" placeholder="Symbol" [(ngModel)]="stock.symbol" >
+          <input #stockSymbolInput class="form-control pb-form-control-sm" placeholder="Symbol" [(ngModel)]="stock.symbol" >
         </th>
         <td>
           <label> {{ stock.price }}</label>
@@ -42,7 +42,7 @@
           <label>{{ stock.quantity }}</label>
         </td>
         <td>
-          <input class="form-control pb-form-control-sm" placeholder="00" type="number" [(ngModel)]="stock.value" >
+          <input #stockValueInput class="form-control pb-form-control-sm" placeholder="00" type="number" [(ngModel)]="stock.value" >
         </td>
         <td>
           <label> {{ stock.currentAllocation | percent }} </label>
@@ -106,7 +106,7 @@
           New Addition:
         </div>
         <div class="col-md-3">
-          <input class="form-control pb-form-control-md" type="number" placeholder="0.0" [(ngModel)]="newAddition" >
+          <input #newAdditionInput class="form-control pb-form-control-md" type="number" placeholder="0.0" [(ngModel)]="newAddition" >
         </div>
       </div>
 
@@ -115,7 +115,7 @@
           Cash Takeout:
         </div>
         <div class="col-md-3">
-          <input class="form-control pb-form-control-md" type="number" placeholder="0.0" [(ngModel)]="cashTakeout" >
+          <input #cashTakeoutInput class="form-control pb-form-control-md" type="number" placeholder="0.0" [(ngModel)]="cashTakeout" >
         </div>
       </div>
       <div class="row">
