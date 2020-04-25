@@ -70,7 +70,6 @@ export class AppComponent implements OnInit {
   }
 
   /**
-   * todo: start here
    * This method valids user input.
    * It will only perform validation of the things that are not validate by Angular and HTML automatically.
    */
