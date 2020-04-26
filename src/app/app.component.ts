@@ -12,11 +12,11 @@ import { isEmptyExpression } from '@angular/compiler';
 export class AppComponent implements OnInit {
 
   // start here.
-  @ViewChild('futureAllocationinput', {static: false}) futureAllocationinput: ElementRef;
-  @ViewChild('stockValueInput', {static: false}) stockValueInput: ElementRef;
-  @ViewChild('stockSymbolInput', {static: false}) stockSymbolInput: ElementRef;
-  @ViewChild('newAdditionInput', {static: false}) newAdditionInput: ElementRef;
-  @ViewChild('cashTakeoutInput', {static: false}) cashTakeoutInput: ElementRef;
+  @ViewChild('futureAllocationinput') futureAllocationinput: ElementRef;
+  @ViewChild('stockValueInput') stockValueInput: ElementRef;
+  @ViewChild('stockSymbolInput') stockSymbolInput: ElementRef;
+  @ViewChild('newAdditionInput') newAdditionInput: ElementRef;
+  @ViewChild('cashTakeoutInput') cashTakeoutInput: ElementRef;
 
 
   title = 'Portfolio Balancer';
