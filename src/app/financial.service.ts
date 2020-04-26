@@ -12,6 +12,8 @@ export class FinancialService {
 
   stkUrl = 'https://financialmodelingprep.com/api/v3/company/profile/vti';
 
+  
+
   constructor(private http: HttpClient) { }
 
   /**
