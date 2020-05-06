@@ -11,7 +11,7 @@ import * as _ from 'lodash';
 export class FinancialService {
 
   stkUrl = 'https://financialmodelingprep.com/api/v3/company/profile/vti';
-
+  stkQuoteUrl = '';
   
 
   constructor(private http: HttpClient) { }
@@ -21,9 +21,9 @@ export class FinancialService {
    * This method returns current price of the stock
    */
   getCurrentPrice(stockSymbol: string): number {
-    let ret = this.http.get(this.stkUrl).subscribe(data => console.log(data.profile.price));
+//    let ret = this.http.get(this.stkUrl).subscribe(data => console.log(data.profile.price));
     console.log('--------------');
-    console.log(ret);
+//    console.log(ret);
     return 20.0;
   }
 }

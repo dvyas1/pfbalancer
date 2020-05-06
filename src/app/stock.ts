@@ -1,5 +1,5 @@
 /**
- * This clas represents a stock/asset
+ * This is an internal asset/stock representation class.
  */
 export class Stock {
 
