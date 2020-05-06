@@ -42,7 +42,6 @@ export class AppComponent implements OnInit {
    * @param stkSymble = Stock symbol to be removed
    */
   removeStock( stkSymble: string ): void {
-    console.log('Removing Stock: ' + stkSymble);
     const idx = this.stocks.findIndex(stock => stock.symbol ===  stkSymble);
     this.stocks.splice(idx, 1);
   }
@@ -51,7 +50,6 @@ export class AppComponent implements OnInit {
    * This function and empty row for a new stock
    */
   addStock(): void {
-    console.log('Adding new empty stock');
     const stk: Stock = new Stock();
     this.stocks.push(stk);
   }
@@ -60,7 +58,6 @@ export class AppComponent implements OnInit {
    * Master function to perform calculation and recommand changes
    */
   performCalculations(): void {
-    console.log('Performing calculations');
     const validationResult = this.validateUserInput();
     if (validationResult) {
       this.stocks = this.clearCalculatedFileds(this.stocks);
@@ -75,21 +72,20 @@ export class AppComponent implements OnInit {
    */
   validateUserInput(): boolean {
     // ensure total percent is not over 100%
-    console.log('Validating user input');
-    this.validationErrors = "";
+    this.validationErrors = '';
 
-    //validate future allocations
+    // validate future allocations
     let tempTotal = 0;
     for (const stk of this.stocks) {
       tempTotal += stk.futureAllocation;
     }
-    if (tempTotal != 100) {
+    if (tempTotal !== 100) {
       this.validationErrors = 'Total of the Future Allocation must be equals to 100%.';
       this.futureAllocationinput.nativeElement.focus();
       return false;
     }
 
-    //validate present value and stock symbol
+    // validate present value and stock symbol
     for (const stk of this.stocks) {
       if (stk.value <= 0) {
         this.validationErrors = 'The present value of stock must be greater than $0.';
@@ -97,16 +93,16 @@ export class AppComponent implements OnInit {
         return false;
       }
 
-      if (stk.symbol === ''){
+      if (stk.symbol === '') {
         this.validationErrors = 'The stock symbol cannot be empty.';
         this.stockSymbolInput.nativeElement.focus();
         return false;
       }
     }
 
-    //verify cash addition or takeout is non-negative
+    // verify cash addition or takeout is non-negative
     if (this.newAddition < 0) {
-      this.validationErrors = 'New cash addition to portfolio cannot be negative!'
+      this.validationErrors = 'New cash addition to portfolio cannot be negative!';
       this.newAdditionInput.nativeElement.focus();
       return false;
     }
@@ -126,13 +122,13 @@ export class AppComponent implements OnInit {
    * It will also perform other calcualtions as a part of the fillign stock parameters
    */
   private fillStockParameters(): void {
-    console.log(this.financialSv.getCurrentPrice('tt'));
+    // console.log(this.financialSv.getStockQuotes('tt')); todo: this was uncommented
 
     // set total present value to 0 as we will be calculating it again below
     this.totalPresentValue = 0.0;
 
     for (const stock of this.stocks) {
-      stock.price = this.financialSv.getCurrentPrice(stock.symbol);
+      // stock.price = this.financialSv.getStockQuotes(stock.symbol);  todo: this was uncommented
       stock.quantity = stock.value === 0 ? 0 : (stock.value / stock.price);
 
       // increase stock value to total present value
@@ -161,11 +157,11 @@ export class AppComponent implements OnInit {
   }
 
   /**
-   * This function clearns all of the calculated fields from stocks. 
+   * This function clearns all of the calculated fields from stocks.
    * This should be done before performing final calculations to remove previous results
    * @param stks Array of stocks
    */
-  private clearCalculatedFileds( stks: Stock[]){
+  private clearCalculatedFileds( stks: Stock[]) {
     for (const stk of stks) {
       stk.price = 0.0;
       stk.quantity = 0;

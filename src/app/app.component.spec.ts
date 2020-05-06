@@ -2,6 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 import { Stock } from './stock';
 
 describe('AppComponent', () => {
@@ -12,6 +13,7 @@ describe('AppComponent', () => {
       ],
       imports: [
         BrowserModule,
+        HttpClientModule,
         FormsModule
       ],
     }).compileComponents();
@@ -38,20 +40,20 @@ describe('AppComponent', () => {
 
   it('#addStock() should add stock to master list', () => {
     const app = TestBed.createComponent(AppComponent).debugElement.componentInstance;
-    expect(app.stocks.length).toBe(2, "only two elements at first");
+    expect(app.stocks.length).toBe(2, 'only two elements at first');
     app.addStock();
-    expect(app.stocks.length).toBe(3, "three element after addStock() call");
+    expect(app.stocks.length).toBe(3, 'three element after addStock() call');
   });
 
   it(' #removeStock should remove stock from master list', () => {
     const app = TestBed.createComponent(AppComponent).debugElement.componentInstance;
-    expect(app.stocks.length).toBe(2, "only two stocks at first");
-    let stk:Stock = new Stock();
+    expect(app.stocks.length).toBe(2, 'only two stocks at first');
+    const stk: Stock = new Stock();
     stk.symbol = 'ABCD';
     app.stocks.push(stk);
-    expect(app.stocks.length).toBe(3, "added a stock in order to remove it later using #removeStock method");
+    expect(app.stocks.length).toBe(3, 'added a stock in order to remove it later using #removeStock method');
     app.removeStock('ABCD');
-    expect(app.stocks.length).toBe(2, "only two stocks after removal of stock");
+    expect(app.stocks.length).toBe(2, 'only two stocks after removal of stock');
   });
 
 });

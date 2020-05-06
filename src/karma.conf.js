@@ -11,7 +11,8 @@ module.exports = function (config) {
       require('karma-jasmine-html-reporter'),
       require('karma-junit-reporter'),
       require('karma-coverage-istanbul-reporter'),
-      require('@angular-devkit/build-angular/plugins/karma')
+      require('@angular-devkit/build-angular/plugins/karma'),
+      require('karma-spec-reporter')
     ],
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
@@ -31,7 +32,7 @@ module.exports = function (config) {
       properties: {}, // key value pair of properties to add to the <properties> section of the report
       xmlVersion: null // use '1' if reporting to be per SonarQube 6.2 XML format
     },
-    reporters: ['kjhtml', 'progress', 'junit'],
+    reporters: ['kjhtml', 'progress', 'junit', 'spec'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
