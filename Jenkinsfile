@@ -4,7 +4,7 @@
 */
 deploymentBkt = ""
 def generateBucketName() {
-  return "pfbalancer-" + env.BRANCH_NAME + "-" + "${currentBuild.number}"
+  return env.BKT_NAME + "-" + env.BRANCH_NAME + "-" + "${currentBuild.number}"
 } 
 
 pipeline {
