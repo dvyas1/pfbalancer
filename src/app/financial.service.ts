@@ -19,8 +19,6 @@ export class FinancialService {
    * This method returns current price of the stock
    */
   getStockQuotes(stockSymbolList: Array<string>): Observable<Array<StkQuote>> {
-//    let ret = this.http.get(this.stkUrl).subscribe(data => console.log(data.profile.price));
-//    console.log(ret);
     const url = this.stkQuoteUrl + stockSymbolList.join(',').toUpperCase();
     return this.http.get<Array<StkQuote>>(url);
   }

@@ -3,6 +3,7 @@ import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { Stock } from './stock';
 import { FinancialService } from './financial.service';
 import { isEmptyExpression } from '@angular/compiler';
+import {StkQuote} from './stk-quote';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +37,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   /**
    * This function removes stock from master stock list
    * @param stkSymble = Stock symbol to be removed
@@ -54,12 +54,19 @@ export class AppComponent implements OnInit {
     this.stocks.push(stk);
   }
 
+  trimInput( inputVal: string): void {
+    if (inputVal !== undefined) {
+      inputVal.trim();
+    }
+  }
+
   /**
    * Master function to perform calculation and recommand changes
    */
   performCalculations(): void {
     const validationResult = this.validateUserInput();
-    if (validationResult) {
+    const populateStockPriceResult = this.populateCurrentStockPrice();
+    if (validationResult && populateStockPriceResult) {
       this.stocks = this.clearCalculatedFileds(this.stocks);
       this.fillStockParameters();
     }
@@ -67,14 +74,37 @@ export class AppComponent implements OnInit {
   }
 
   /**
+   * This method pupules current stock price in master stock list (this.stocks)
+   * It will display error message any of the stock symbol is not valid and return false. Otherwise it will return true.
+   */
+  private populateCurrentStockPrice(): boolean {
+    // get current quotes of all stocks
+    const arrOfStkSymbols = [];
+    this.stocks.forEach(stk => arrOfStkSymbols.push(stk.symbol));
+    const stockQuotes = this.financialSv.getStockQuotes(arrOfStkSymbols);
+    stockQuotes.toPromise().then((quotes: StkQuote[]) => {
+      this.stocks.forEach(stk => {
+        const kt = quotes.find(temp => ((temp.symbol.toUpperCase() === stk.symbol.toUpperCase())));
+        if (kt == null) {
+          this.validationErrors = 'The symbol ' + stk.symbol + ' is not valid. Please enter valid stock symbol.';
+          return false;
+        } else {
+          stk.price = kt.price;
+        }
+      });
+    });
+    return true;
+  }
+
+  /**
    * This method valids user input.
    * It will only perform validation of the things that are not validate by Angular and HTML automatically.
    */
-  validateUserInput(): boolean {
-    // ensure total percent is not over 100%
+  private validateUserInput(): boolean {
     this.validationErrors = '';
 
     // validate future allocations
+    // ensure total percent is not over 100%
     let tempTotal = 0;
     for (const stk of this.stocks) {
       tempTotal += stk.futureAllocation;
@@ -93,10 +123,12 @@ export class AppComponent implements OnInit {
         return false;
       }
 
-      if (stk.symbol === '') {
+      if ( stk.symbol === undefined || stk.symbol.trim() === '') {
         this.validationErrors = 'The stock symbol cannot be empty.';
         this.stockSymbolInput.nativeElement.focus();
         return false;
+      } else {
+        stk.symbol = stk.symbol.trim();
       }
     }
 
@@ -116,14 +148,11 @@ export class AppComponent implements OnInit {
     return true;
   }
 
-  // todo: start here
   /**
    * This function fills all of the stock variable parameters.
    * It will also perform other calcualtions as a part of the fillign stock parameters
    */
   private fillStockParameters(): void {
-    // console.log(this.financialSv.getStockQuotes('tt')); todo: this was uncommented
-
     // set total present value to 0 as we will be calculating it again below
     this.totalPresentValue = 0.0;
 

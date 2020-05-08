@@ -36,7 +36,7 @@
           <input #stockSymbolInput class="form-control pb-form-control-sm" placeholder="Symbol" [(ngModel)]="stock.symbol" >
         </th>
         <td>
-          <label> {{ stock.price }}</label>
+          <label> {{ stock.price | currency}}</label>
         </td>
         <td>
           <label>{{ stock.quantity }}</label>
