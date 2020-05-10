@@ -45,7 +45,10 @@ jobs:
       with:
         name: dist
         path: dist
-        
+    
+    - name: Testing
+      run: ls | xargs ls
+    
     - uses: actions/checkout@master
     - uses: jakejarvis/s3-sync-action@master
       with:
@@ -55,4 +58,4 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.DEPLOYER_KEY }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.DEPLOYER_SECRET }}
         AWS_REGION: 'us-east-1'   # optional: defaults to us-east-1
-        SOURCE_DIR: 'dist/PortfolioBalancer'      # optional: defaults to entire repository
+        SOURCE_DIR: 'dist'      # optional: defaults to entire repository
