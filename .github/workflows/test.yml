@@ -6,7 +6,7 @@ name: CI
 # events but only for the master branch
 on:
   push:
-    branches: [ dvyas1-patch-1 ]
+    branches: [ develop ]
   pull_request:
     branches: [ master ]
 
