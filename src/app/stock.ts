@@ -1,5 +1,5 @@
 /**
- * This clas represents a stock/asset
+ * This is an internal asset/stock representation class.
  */
 export class Stock {
 
@@ -10,12 +10,6 @@ export class Stock {
   currentAllocation: number;
   futureAllocation: number;
   changesNeeded: string;
-
-
-  static validateRequiredVals(): boolean {
-    console.log('Validating Stock required field');
-    return true;
-  }
 
 }
 

@@ -7,7 +7,7 @@
   <div class="row justify-content-md-center">
     <div class="site-head">
                 <span class="title">
-                    <h1>Portfolio Balancer (Alpha)</h1>
+                    <h1>Portfolio Balancer (Alpha)!!</h1>
                 </span>
     </div>
   </div>
@@ -33,16 +33,16 @@
       <tbody>
       <tr *ngFor="let stock of stocks">
         <th scope="row">
-          <input class="form-control pb-form-control-sm" placeholder="Symbol" [(ngModel)]="stock.symbol" >
+          <input #stockSymbolInput class="form-control pb-form-control-sm" placeholder="Symbol" [(ngModel)]="stock.symbol" >
         </th>
         <td>
-          <label> {{ stock.price }}</label>
+          <label> {{ stock.price | currency}}</label>
         </td>
         <td>
           <label>{{ stock.quantity }}</label>
         </td>
         <td>
-          <input class="form-control pb-form-control-sm" placeholder="00" type="number" [(ngModel)]="stock.value" >
+          <input #stockValueInput class="form-control pb-form-control-sm" placeholder="00" type="number" [(ngModel)]="stock.value" >
         </td>
         <td>
           <label> {{ stock.currentAllocation | percent }} </label>
@@ -93,7 +93,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-4">
           Total Present Value:
         </div>
         <div class="col-md-3">
@@ -102,29 +102,29 @@
       </div>
 
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-4">
           New Addition:
         </div>
         <div class="col-md-3">
-          <input class="form-control pb-form-control-md" type="number" placeholder="0.0" [(ngModel)]="newAddition" >
+          <input #newAdditionInput class="form-control pb-form-control-md" type="number" placeholder="0.0" [(ngModel)]="newAddition" >
         </div>
       </div>
 
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-4">
           Cash Takeout:
         </div>
         <div class="col-md-3">
-          <input class="form-control pb-form-control-md" type="number" placeholder="0.0" [(ngModel)]="cashTakeout" >
+          <input #cashTakeoutInput class="form-control pb-form-control-md" type="number" placeholder="0.0" [(ngModel)]="cashTakeout" >
         </div>
       </div>
       <div class="row">
         <div class="col-md-8">
-          -----------------------------------------------------------
+          -------------------------------------------------------------------------
         </div>
       </div>
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-4">
           Total New Value:
         </div>
         <div class="col-md-3">

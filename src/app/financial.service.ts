@@ -1,17 +1,25 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+import { Observable} from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import * as _ from 'lodash';
+
+import {StkQuote} from './stk-quote';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FinancialService {
+  stkQuoteUrl = 'https://financialmodelingprep.com/api/v3/quote/';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   /**
-   * todo: fill the logic
    * This method returns current price of the stock
    */
-  getCurrentPrice(stockSymbol: string): number {
-    return 10.0;
+  getStockQuotes(stockSymbolList: Array<string>): Observable<Array<StkQuote>> {
+    const url = this.stkQuoteUrl + stockSymbolList.join(',').toUpperCase();
+    return this.http.get<Array<StkQuote>>(url);
   }
 }
